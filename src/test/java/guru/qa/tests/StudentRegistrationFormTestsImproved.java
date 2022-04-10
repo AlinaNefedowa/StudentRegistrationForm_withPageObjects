@@ -6,12 +6,11 @@ package guru.qa.tests;
         import org.junit.jupiter.api.BeforeAll;
         import org.junit.jupiter.api.BeforeEach;
         import org.junit.jupiter.api.Test;
-        import org.openqa.selenium.By;
-        import javax.swing.*;
         import static com.codeborne.selenide.Condition.text;
-        import static com.codeborne.selenide.Condition.visible;
         import static com.codeborne.selenide.Selectors.byText;
         import static com.codeborne.selenide.Selenide.*;
+        import static guru.qa.utils.RandomUtils.getRandomGender;
+        import static guru.qa.utils.RandomUtils.getRandomStringOfDigits;
         import static java.lang.String.format;
         import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -21,21 +20,16 @@ public class StudentRegistrationFormTestsImproved {
     String firstName = faker.name().firstName(),
            lastName = faker.name().lastName(),
            email = faker.internet().emailAddress(),
-           //mobile = faker.numerify('##########'),
-           currentAddress = faker.address().fullAddress();
+           currentAddress = faker.address().fullAddress(),
+           mobile = getRandomStringOfDigits(10),
+           gender = getRandomGender();
 
     String
-           //firstName = "Alisa",
-           //lastName = "Berg",
-           //email = "alisa.berg@gmail.com",
-           gender = "Female",
-           mobile = "9213332221",
            dateOfBirth = "30 April,1992",
            subjects = "Computer science",
            hobby1 = "Sports",
            hobby2 = "Reading",
            picture = "Picture.jpeg",
-           //currentAddress = "Operngasse 15, 7",
            state = "Haryana",
            city = "Karnal";
 

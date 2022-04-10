@@ -1,7 +1,8 @@
-package guru.qa;
+package guru.qa.tests;
 
         import com.codeborne.selenide.Configuration;
         import com.codeborne.selenide.Selenide;
+        import com.github.javafaker.Faker;
         import org.junit.jupiter.api.BeforeAll;
         import org.junit.jupiter.api.BeforeEach;
         import org.junit.jupiter.api.Test;
@@ -16,9 +17,17 @@ package guru.qa;
 
 public class StudentRegistrationFormTestsImproved {
 
-    String firstName = "Alisa",
-           lastName = "Berg",
-           email = "alisa.berg@gmail.com",
+    Faker faker = new Faker();
+    String firstName = faker.name().firstName(),
+           lastName = faker.name().lastName(),
+           email = faker.internet().emailAddress(),
+           //mobile = faker.numerify('##########'),
+           currentAddress = faker.address().fullAddress();
+
+    String
+           //firstName = "Alisa",
+           //lastName = "Berg",
+           //email = "alisa.berg@gmail.com",
            gender = "Female",
            mobile = "9213332221",
            dateOfBirth = "30 April,1992",
@@ -26,9 +35,10 @@ public class StudentRegistrationFormTestsImproved {
            hobby1 = "Sports",
            hobby2 = "Reading",
            picture = "Picture.jpeg",
-           currentAddress = "Operngasse 15, 7",
+           //currentAddress = "Operngasse 15, 7",
            state = "Haryana",
            city = "Karnal";
+
     String expectedFullName = format("%s %s", firstName, lastName),
            expectedStateAndCity = format("%s %s", state, city),
            expectedHobbies = format("%s, %s", hobby1, hobby2);

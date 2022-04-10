@@ -67,15 +67,15 @@ public class StudentRegistrationFormTestsImproved {
 
         //Assertions
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        studentRegistrationFormPage.checkResult("Student name", expectedFullName)
-                                   .checkResult("Student email", email)
-                                   .checkResult("Student gender", gender)
-                                   .checkResult("Student mobile", mobile)
-                                   .checkResult("Student dateOfBirth", birthDay + " " + birthMonth + "," + birthYear)
-                                   .checkResult("Student subjects", subjects)
-                                   .checkResult("Student hobbies", expectedHobbies)
-                                   .checkResult("Student picture", picture)
-                                   .checkResult("Student currentAddress", currentAddress)
-                                   .checkResult("Student stateAndCity", expectedStateAndCity);
+        studentRegistrationFormPage.checkResult("Student Name", expectedFullName)
+                                   .checkResult("Student Email", email)
+                                   .checkResult("Gender", gender)
+                                   .checkResult("Mobile", mobile)
+                                   .checkResult("Date of Birth", birthDay + " " + birthMonth + "," + birthYear)
+                                   .checkResult("Subjects", subjects)
+                                   .checkResult("Hobbies", expectedHobbies)
+                                   .checkResult("Picture", picture)
+                                   .checkResult("Address", currentAddress)
+                                   .checkResult("State and City", expectedStateAndCity);
     }
 }

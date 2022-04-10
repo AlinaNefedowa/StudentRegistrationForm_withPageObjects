@@ -3,6 +3,7 @@ package guru.qa.tests;
         import com.codeborne.selenide.Configuration;
         import com.codeborne.selenide.Selenide;
         import com.github.javafaker.Faker;
+        import guru.qa.pages.StudentRegistrationFormPage;
         import org.junit.jupiter.api.BeforeAll;
         import org.junit.jupiter.api.BeforeEach;
         import org.junit.jupiter.api.Test;
@@ -16,6 +17,8 @@ package guru.qa.tests;
 
 public class StudentRegistrationFormTestsImproved {
 
+    StudentRegistrationFormPage studentRegistrationFormPage = new StudentRegistrationFormPage();
+
     Faker faker = new Faker();
     String firstName = faker.name().firstName(),
            lastName = faker.name().lastName(),
@@ -25,7 +28,9 @@ public class StudentRegistrationFormTestsImproved {
            gender = getRandomGender();
 
     String
-           dateOfBirth = "30 April,1992",
+           birthDay = "30",
+           birthMonth = "April",
+           birthYear = "1992",
            subjects = "Computer science",
            hobby1 = "Sports",
            hobby2 = "Reading",
@@ -45,54 +50,32 @@ public class StudentRegistrationFormTestsImproved {
 
     @Test
     void fillFormTest() {
-
-        open("/automation-practice-form");
-        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
-        executeJavaScript("$('footer').remove()");
-        executeJavaScript("$('#fixedban').remove()");
-
-        $("#firstName").setValue(firstName);
-        $("#lastName").setValue(lastName);
-        $("#userEmail").setValue(email);
-        $("#genterWrapper").$(byText(gender)).click();
-        //$("#gender-radio-2").parent().click();
-        $("#userNumber").setValue(mobile);
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption("April");
-        $(".react-datepicker__year-select").selectOption("1992");
-        $(".react-datepicker__day--030:not(.react-datepicker__day--outside-month)").click();
-
-        $("#subjectsInput").setValue(subjects).pressEnter();
-        $("#hobbiesWrapper").$(byText(hobby1)).click();
-        $("#hobbiesWrapper").$(byText(hobby2)).click();
-        //$("#hobbies-checkbox-1").parent().click();
-        $("#uploadPicture").uploadFromClasspath("img/"+picture);
-        $("#currentAddress").setValue(currentAddress);
-
-        //Scroll the page
-        $("#stateCity-wrapper").scrollIntoView(true);
-
-        $("#state").click();
-        $("#stateCity-wrapper").$(byText(state)).click();
-        $("#city").click();
-        $("#city").$(byText(city)).click();
-
-        $("#submit").click();
+        studentRegistrationFormPage.openPage()
+                                   .setFirstName(firstName)
+                                   .setLastName(lastName)
+                                   .setUserEmail(email)
+                                   .setGender(gender)
+                                   .setUserNumber(mobile)
+                                   .setDateOfBirth(birthDay, birthMonth, birthYear)
+                                   .setSubjects(subjects)
+                                   .setHobbies(hobby1, hobby2)
+                                   .uplaodPicture(picture)
+                                   .setStateAndCity(state, city)
+                                   .setCurrentAddress(currentAddress)
+                                   .scrollThePage()
+                                   .clickSubmit();
 
         //Assertions
-
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(
-                text(expectedFullName),
-                text(email),
-                text(gender),
-                text(mobile),
-                text(dateOfBirth),
-                text(subjects),
-                text(expectedHobbies),
-                text(picture),
-                text(currentAddress),
-                text(expectedStateAndCity)
-        );
+        studentRegistrationFormPage.checkResult("Student name", expectedFullName)
+                                   .checkResult("Student email", email)
+                                   .checkResult("Student gender", gender)
+                                   .checkResult("Student mobile", mobile)
+                                   .checkResult("Student dateOfBirth", birthDay + " " + birthMonth + "," + birthYear)
+                                   .checkResult("Student subjects", subjects)
+                                   .checkResult("Student hobbies", expectedHobbies)
+                                   .checkResult("Student picture", picture)
+                                   .checkResult("Student currentAddress", currentAddress)
+                                   .checkResult("Student stateAndCity", expectedStateAndCity);
     }
 }

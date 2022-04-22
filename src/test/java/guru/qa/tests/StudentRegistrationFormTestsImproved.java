@@ -1,19 +1,20 @@
 package guru.qa.tests;
 
-        import com.codeborne.selenide.Configuration;
-        import com.codeborne.selenide.Selenide;
-        import com.github.javafaker.Faker;
-        import guru.qa.pages.StudentRegistrationFormPage;
-        import org.junit.jupiter.api.BeforeAll;
-        import org.junit.jupiter.api.BeforeEach;
-        import org.junit.jupiter.api.Test;
-        import static com.codeborne.selenide.Condition.text;
-        import static com.codeborne.selenide.Selectors.byText;
-        import static com.codeborne.selenide.Selenide.*;
-        import static guru.qa.utils.RandomUtils.getRandomGender;
-        import static guru.qa.utils.RandomUtils.getRandomStringOfDigits;
-        import static java.lang.String.format;
-        import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
+import com.github.javafaker.Faker;
+import guru.qa.pages.StudentRegistrationFormPage;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.*;
+import static guru.qa.utils.RandomUtils.getRandomGender;
+import static guru.qa.utils.RandomUtils.getRandomStringOfDigits;
+import static java.lang.String.format;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StudentRegistrationFormTestsImproved {
 
@@ -32,15 +33,15 @@ public class StudentRegistrationFormTestsImproved {
            birthMonth = "April",
            birthYear = "1992",
            subjects = "Computer science",
-           hobby1 = "Sports",
-           hobby2 = "Reading",
            picture = "Picture.jpeg",
            state = "Haryana",
            city = "Karnal";
 
+    String[] hobby = {"Sports", "Reading"};
+
     String expectedFullName = format("%s %s", firstName, lastName),
            expectedStateAndCity = format("%s %s", state, city),
-           expectedHobbies = format("%s, %s", hobby1, hobby2);
+           expectedHobbies = format("%s, %s", hobby[0], hobby[1]);
 
     @BeforeAll
     static void setUp() {
@@ -58,7 +59,7 @@ public class StudentRegistrationFormTestsImproved {
                                    .setUserNumber(mobile)
                                    .setDateOfBirth(birthDay, birthMonth, birthYear)
                                    .setSubjects(subjects)
-                                   .setHobbies(hobby1, hobby2)
+                                   .setHobbies(hobby)
                                    .uplaodPicture(picture)
                                    .setStateAndCity(state, city)
                                    .setCurrentAddress(currentAddress)
@@ -66,6 +67,7 @@ public class StudentRegistrationFormTestsImproved {
                                    .clickSubmit();
 
         //Assertions
+        studentRegistrationFormPage.thanks();
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
         studentRegistrationFormPage.checkResult("Student Name", expectedFullName)
                                    .checkResult("Student Email", email)

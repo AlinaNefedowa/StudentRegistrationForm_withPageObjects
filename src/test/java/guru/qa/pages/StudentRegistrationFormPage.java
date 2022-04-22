@@ -24,29 +24,29 @@ public class StudentRegistrationFormPage {
         return this;
     }
 
-    public StudentRegistrationFormPage setFirstName(String value){
-        $("#firstName").setValue(value);
+    public StudentRegistrationFormPage setFirstName(String firstName){
+        $("#firstName").setValue(firstName);
         return this;
     }
 
-    public StudentRegistrationFormPage setLastName(String value){
-        $("#lastName").setValue(value);
+    public StudentRegistrationFormPage setLastName(String lastName){
+        $("#lastName").setValue(lastName);
         return this;
     }
 
-    public StudentRegistrationFormPage setUserEmail(String value){
-        $("#userEmail").setValue(value);
+    public StudentRegistrationFormPage setUserEmail(String userEmail){
+        $("#userEmail").setValue(userEmail);
         return this;
     }
 
-    public StudentRegistrationFormPage setGender(String value){
-        $("#genterWrapper").$(byText(value)).click();
+    public StudentRegistrationFormPage setGender(String gender){
+        $("#genterWrapper").$(byText(gender)).click();
         //$("#gender-radio-2").parent().click();
         return this;
     }
 
-    public StudentRegistrationFormPage setUserNumber(String value){
-        $("#userNumber").setValue(value);
+    public StudentRegistrationFormPage setUserNumber(String userNumber){
+        $("#userNumber").setValue(userNumber);
         return this;
     }
 
@@ -59,14 +59,14 @@ public class StudentRegistrationFormPage {
         return this;
     }
 
-    public StudentRegistrationFormPage setSubjects(String value){
-        $("#subjectsInput").setValue(value).pressEnter();
+    public StudentRegistrationFormPage setSubjects(String subjects){
+        $("#subjectsInput").setValue(subjects).pressEnter();
         return this;
     }
 
-    public StudentRegistrationFormPage setHobbies(String value1, String value2){
-        $("#hobbiesWrapper").$(byText(value1)).click();
-        $("#hobbiesWrapper").$(byText(value2)).click();
+    public StudentRegistrationFormPage setHobbies(String[] hobby){
+        $("#hobbiesWrapper").$(byText(hobby[0])).click();
+        $("#hobbiesWrapper").$(byText(hobby[1])).click();
         //$("#hobbies-checkbox-1").parent().click();
         return this;
     }
@@ -76,17 +76,17 @@ public class StudentRegistrationFormPage {
         return this;
     }
 
-    public StudentRegistrationFormPage setCurrentAddress(String value){
-        $("#currentAddress").setValue(value);
+    public StudentRegistrationFormPage setCurrentAddress(String currentAddress){
+        $("#currentAddress").setValue(currentAddress);
         return this;
 
     }
 
-    public StudentRegistrationFormPage setStateAndCity(String value1, String value2){
+    public StudentRegistrationFormPage setStateAndCity(String state, String city){
         $("#state").click();
-        $("#stateCity-wrapper").$(byText(value1)).click();
+        $("#stateCity-wrapper").$(byText(state)).click();
         $("#city").click();
-        $("#city").$(byText(value2)).click();
+        $("#city").$(byText(city)).click();
         return this;
     }
 
@@ -97,6 +97,11 @@ public class StudentRegistrationFormPage {
 
     public StudentRegistrationFormPage clickSubmit(){
         $("#submit").click();
+        return this;
+    }
+
+    public StudentRegistrationFormPage thanks(){
+        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
         return this;
     }
 
